@@ -20,4 +20,4 @@ COPY . .
 CMD [ "node", "index.js" ]
 
 # Expose the port your app runs on.
-EXPOSE 3000
+EXPOSE 8080
