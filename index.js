@@ -60,7 +60,6 @@ app.post('/signin', (req, res) => {
   });
 });
 
-
 app.post('/refresh', (req, res) => {
   const { token } = req.body;
 
@@ -102,7 +101,6 @@ app.post('/refresh', (req, res) => {
     refreshToken,
   });
 });
-
 
 app.use((req, res, next) => {
   const token = req.headers.authorization;
@@ -164,9 +162,12 @@ app.post('/users', (req, res) => {
 
 app.patch('/users/:id', (req, res) => {
   const { firstName, lastName, position, } = req.body;
-  const id = req.params.id - 1;
+  const id = req.params.id;
+  const index = database.users.findIndex(
+    (user) => id === user.id,
+  );
 
-  if (!database.users[id]) {
+  if (index === -1) {
     return res.status(400).send({
       'error': 'user_not_found',
       'message': 'User not found',
@@ -174,29 +175,34 @@ app.patch('/users/:id', (req, res) => {
   }
 
   if (firstName) {
-    database.users[id].firstName = firstName;
+    database.users[index].firstName = firstName;
   }
 
   if (lastName) {
-    database.users[id].lastName = lastName;
+    database.users[index].lastName = lastName;
   }
 
   if (position) {
-    database.users[id].position = position;
+    database.users[index].position = position;
   }
 
-  return res.status(200).send(database.users[id]);
+  return res.status(200).send(database.users[index]);
 });
 
 app.delete('/users/:id', (req, res) => {
-  const id = req.params.id - 1;
+  const id = req.params.id;
+  const index = database.users.findIndex(
+    (user) => user.id == id,
+  );
 
-  if (!database.users[id]) {
+  if (index === -1) {
     return res.status(400).send({
       'error': 'user_not_found',
       'message': 'User not found',
     });
   }
+
+  database.users.splice(index, 1);
 
   return res.status(201).send();
 });
