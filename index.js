@@ -188,6 +188,19 @@ app.patch('/users/:id', (req, res) => {
   return res.status(200).send(database.users[id]);
 });
 
+app.delete('/users/:id', (req, res) => {
+  const id = req.params.id - 1;
+
+  if (!database.users[id]) {
+    return res.status(400).send({
+      'error': 'user_not_found',
+      'message': 'User not found',
+    });
+  }
+
+  return res.status(201).send();
+});
+
 app.listen(
   8080,
   () => {
