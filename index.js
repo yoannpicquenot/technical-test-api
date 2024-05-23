@@ -168,7 +168,7 @@ app.patch('/users/:id', (req, res) => {
   );
 
   if (index === -1) {
-    return res.status(400).send({
+    return res.status(404).send({
       'error': 'user_not_found',
       'message': 'User not found',
     });
@@ -196,7 +196,7 @@ app.delete('/users/:id', (req, res) => {
   );
 
   if (index === -1) {
-    return res.status(400).send({
+    return res.status(404).send({
       'error': 'user_not_found',
       'message': 'User not found',
     });
