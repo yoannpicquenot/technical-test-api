@@ -10,7 +10,7 @@ Url: https://technical-test-api.onrender.com
 
 **Processus d'utilisation** : L'utilisateur se connecte, reçoit à la fois un accessToken et un refreshToken. L'accessToken est utilisé pour les requêtes subséquentes jusqu'à son expiration.
 
-**Renouvellement** : À l'expiration de l'accessToken, le refreshToken est envoyé à un point d'API spécifique pour obtenir un nouvel accessToken sans que l'utilisateur doive se reconnecter.
+**Renouvellement** : À l'expiration de l'accessToken, le refreshToken est envoyé à un point d'API spécifique pour obtenir un nouvel accessToken sans que l'utilisateur n'ait le besoin de se reconnecter.
 
 ### Connexion
 ```json
