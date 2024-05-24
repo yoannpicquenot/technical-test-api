@@ -4,6 +4,8 @@ Url: https://technical-test-api.onrender.com
 
 # Authentification
 
+> Les tokens générés sont des [JWT](https://jwt.io/).
+
 **accessToken** : Un jeton utilisé pour accéder aux API sécurisées, qui expire  rapidement pour minimiser le risque en cas de compromission. Il contient généralement des informations d'identification de l'utilisateur et des droits d'accès. **Expire au bout de 5 minutes**
 
 **refreshToken** : Un jeton plus durable utilisé pour obtenir un nouvel accessToken une fois que l'accessToken initial a expiré. Son utilisation renforce la sécurité en limitant la fréquence de saisie des informations d'authentification par l'utilisateur. **Expire au bout de 15 minutes**
