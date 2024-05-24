@@ -42,29 +42,29 @@ app.post('/signin', (req, res) => {
     });
   }
 
-  const token = jwt.sign({
+  const accessToken = jwt.sign({
     email: adminEmail,
   }, mppSecret, {
     expiresIn: '5 minutes',
   });
 
   const refreshToken = jwt.sign({
-    assignedToken: token,
+    assignedToken: accessToken,
   }, mppSecret, {
     expiresIn: '15 minutes',
   });
 
   return res.status(200).send({
-    token,
+    accessToken,
     refreshToken,
   });
 });
 
 app.post('/refresh', (req, res) => {
-  const { token } = req.body;
+  const { refreshToken } = req.body;
 
   try {
-    jwt.verify(token, mppSecret);
+    jwt.verify(refreshToken, mppSecret);
   } catch (exception) {
     if (exception instanceof jwt.TokenExpiredError) {
       return res.status(401).send({
@@ -74,7 +74,7 @@ app.post('/refresh', (req, res) => {
     }
   }
 
-  const data = jwt.decode(token);
+  const data = jwt.decode(refreshToken);
 
   if (!data.assignedToken) {
     return res.status(400).send({
@@ -90,15 +90,15 @@ app.post('/refresh', (req, res) => {
     expiresIn: '5 minutes',
   });
 
-  const refreshToken = jwt.sign({
-    assignedToken: token,
+  const newRefreshToken = jwt.sign({
+    assignedToken: refreshToken,
   }, mppSecret, {
     expiresIn: '15 minutes',
   });
 
   return res.status(200).send({
-    token: newToken,
-    refreshToken,
+    accessToken: newToken,
+    refreshToken: newRefreshToken,
   });
 });
 

@@ -4,13 +4,17 @@ Url: https://technical-test-api.onrender.com
 
 # Authentification
 
-**accessToken** : Un jeton utilisé pour accéder aux API sécurisées, qui expire  rapidement pour minimiser le risque en cas de compromission. Il contient généralement des informations d'identification de l'utilisateur et des droits d'accès.
+**accessToken** : Un jeton utilisé pour accéder aux API sécurisées, qui expire  rapidement pour minimiser le risque en cas de compromission. Il contient généralement des informations d'identification de l'utilisateur et des droits d'accès. **Expire au bout de 5 minutes**
 
-**refreshToken** : Un jeton plus durable utilisé pour obtenir un nouvel accessToken une fois que l'accessToken initial a expiré. Son utilisation renforce la sécurité en limitant la fréquence de saisie des informations d'authentification par l'utilisateur.
+**refreshToken** : Un jeton plus durable utilisé pour obtenir un nouvel accessToken une fois que l'accessToken initial a expiré. Son utilisation renforce la sécurité en limitant la fréquence de saisie des informations d'authentification par l'utilisateur. **Expire au bout de 15 minutes**
 
 **Processus d'utilisation** : L'utilisateur se connecte, reçoit à la fois un accessToken et un refreshToken. L'accessToken est utilisé pour les requêtes subséquentes jusqu'à son expiration.
 
 **Renouvellement** : À l'expiration de l'accessToken, le refreshToken est envoyé à un point d'API spécifique pour obtenir un nouvel accessToken sans que l'utilisateur n'ait le besoin de se reconnecter.
+
+**Temps d'expiration** :<br/>
+AccessToken: **5 minutes**
+refreshToken: **15 minutes**
 
 ### Connexion
 ```json
