@@ -151,7 +151,9 @@ app.post('/users', (req, res) => {
     });
   }
 
+  const id = generateRandomId();
   database.users.push({
+    id,
     firstName,
     lastName,
     position,
@@ -164,7 +166,7 @@ app.patch('/users/:id', (req, res) => {
   const { firstName, lastName, position, } = req.body;
   const id = req.params.id;
   const index = database.users.findIndex(
-    (user) => id === user.id,
+    (user) => id === user.id.toString(),
   );
 
   if (index === -1) {
@@ -192,7 +194,7 @@ app.patch('/users/:id', (req, res) => {
 app.delete('/users/:id', (req, res) => {
   const id = req.params.id;
   const index = database.users.findIndex(
-    (user) => user.id == id,
+    (user) => user.id.toString() === id,
   );
 
   if (index === -1) {
@@ -204,7 +206,7 @@ app.delete('/users/:id', (req, res) => {
 
   database.users.splice(index, 1);
 
-  return res.status(201).send();
+  return res.status(200).send();
 });
 
 app.listen(
@@ -213,3 +215,18 @@ app.listen(
     console.debug('App started listening on port 8080');
   },
 );
+
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
+
+function generateRandomId() {
+  const idList = database.users.map((e) => e.id);
+  let nextId = getRandomInt(100000000);
+
+  while (idList.indexOf(nextId) !== -1) {
+    nextId = getRandomInt(100000000);
+  }
+  return nextId;
+}
